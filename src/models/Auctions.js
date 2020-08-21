@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const auctionsSchema = new Schema({
-<<<<<<< HEAD
   card_id: {
-=======
-  card_d: {
->>>>>>> 9c1fe6ba8a3d63ec36bfcf5ab583325510bcbad0
     type: Number,
     required: true,
   },
