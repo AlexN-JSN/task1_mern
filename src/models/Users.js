@@ -34,10 +34,13 @@ const usersSchema = new Schema({
     type: Array,
     default: [],
   },
+<<<<<<< HEAD
   blocked_cards: {
     type: Array,
     default: [],
   },
+=======
+>>>>>>> 9c1fe6ba8a3d63ec36bfcf5ab583325510bcbad0
   created_at: {
     type: Date,
     default: new Date().toISOString(),

@@ -6,10 +6,13 @@ const settingsSchema = new Schema({
     type: String,
     required: true,
   },
+<<<<<<< HEAD
   params: {
     type: String,
     default: "",
   },
+=======
+>>>>>>> 9c1fe6ba8a3d63ec36bfcf5ab583325510bcbad0
   is_active: {
     type: Boolean,
     required: true,
