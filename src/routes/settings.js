@@ -5,6 +5,7 @@ module.exports = function (app) {
   const controller = require("../controllers/settings_controller");
 
   // ***Settings fields***
+  // project_inited
   // default_user_group : "User",
   // can_create_cards: false,
   // time_token_expired: seconds,

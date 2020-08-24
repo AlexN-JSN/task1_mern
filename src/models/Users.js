@@ -30,14 +30,8 @@ const usersSchema = new Schema({
     type: Array,
     default: [],
   },
-  cards: {
-    type: Array,
-    default: [],
-  },
-  blocked_cards: {
-    type: Array,
-    default: [],
-  },
+  cards: [{ type: Schema.Types.ObjectId }],
+  blocked_cards: [{ type: Schema.Types.ObjectId }],
   created_at: {
     type: Date,
     default: new Date().toISOString(),

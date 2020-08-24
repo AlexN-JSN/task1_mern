@@ -1,4 +1,8 @@
 module.exports = function (app) {
+  //init project
+  const init_project = require("./init_project");
+  init_project(app);
+
   //parsing data from API
   // const parsing_items = require("./parsing");
   // parsing_items(app);

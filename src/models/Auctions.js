@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const auctionsSchema = new Schema({
-  card_id: {
-    type: Number,
-    required: true,
-  },
+  card_id: { type: Schema.Types.ObjectId, required: true },
   price_start: {
     type: Number,
     required: true,
@@ -22,10 +19,6 @@ const auctionsSchema = new Schema({
     type: Date,
     required: true,
   },
-  duration_auction: {
-    type: Number,
-    required: true,
-  },
   min_extension_time: {
     type: Number,
     required: true,
@@ -34,17 +27,12 @@ const auctionsSchema = new Schema({
     type: Number,
     required: true,
   },
-  status: {
+  opened: {
     type: Boolean,
     default: true,
   },
-  owner_id: {
-    type: Number,
-    required: true,
-  },
-  buyer_id: {
-    type: Number,
-  },
+  owner_id: { type: Schema.Types.ObjectId },
+  buyer_id: { type: Schema.Types.ObjectId },
   created_at: {
     type: Date,
     default: new Date().toISOString(),

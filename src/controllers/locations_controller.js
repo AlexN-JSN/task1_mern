@@ -9,16 +9,6 @@ exports.index = function (req, res) {
   });
 };
 
-//create new location
-//Access: private
-exports.create = function (req, res) {
-  const newLocation = new Locations(req.body);
-  newLocation.save(function (err, location) {
-    if (err) res.send(err);
-    res.json(location);
-  });
-};
-
 //Show location by ID
 //Access: public
 exports.show = function (req, res) {

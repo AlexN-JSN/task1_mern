@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 const bodyParser = require("body-parser");
+const path = require("path");
 const mongoose = require("mongoose");
 const mongoose_secret = require("./../vercel.json").env.MongoDB;
 
@@ -10,11 +11,12 @@ const cors = require("./cors");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 cors(app);
 routes(app);
 const uri = mongoose_secret;
-mongoose.connect(uri, {
+mongoose.connect("mongodb://localhost/reading", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,

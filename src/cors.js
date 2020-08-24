@@ -14,6 +14,13 @@ module.exports = function (app) {
     },
     methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
   };
+  const publicOptions = {
+    origin: function (origin, callback) {
+      callback(null, true);
+    },
+    methods: "GET",
+  };
   app.options("*", cors(corsOptions));
   app.use(cors(corsOptions));
+  app.use("/public", cors(publicOptions));
 };

@@ -14,6 +14,10 @@ const settingsSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  editable: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Settings", settingsSchema);

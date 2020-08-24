@@ -32,6 +32,8 @@ exports.create = function (req, res) {
     //get settings for default user group
     let setting_group = await settings.default_user_group();
     let default_group = setting_group !== null ? setting_group : "User";
+    console.log(default_group);
+
     let group = await Groups.findOne({ name: default_group });
     const newUser = new Users({
       name,

@@ -9,16 +9,6 @@ exports.index = function (req, res) {
   });
 };
 
-//create new episode
-//Access: private
-exports.create = function (req, res) {
-  const newEpisode = new Episodes(req.body);
-  newEpisode.save(function (err, episode) {
-    if (err) res.send(err);
-    res.json(episode);
-  });
-};
-
 //Show episode by ID
 //Access: public
 exports.show = function (req, res) {
