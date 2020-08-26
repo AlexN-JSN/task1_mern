@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const jwt_secret = require("../../vercel.json").env.jwtSecret;
 
-module.exports = (req, res, next) => {
+module.exports = function (req, res, next) {
   if (req.method === "OPTIONS") {
     return next();
   }
