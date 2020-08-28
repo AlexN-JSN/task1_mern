@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 const path = require("path");
 const mongoose_connect = require("./mongose_connect.js");
-require("./services/auction/auction_checker.js");
+var CronJob = require("cron").CronJob;
+let auction_checker = require("./services/auction/auction_checker.js");
 
 const routes = require("./routes");
 const cors = require("./cors");
@@ -20,3 +21,13 @@ mongoose_connect();
 app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
+
+var CronJob = require("cron").CronJob;
+var job = new CronJob(
+  "* * * * * *",
+  auction_checker,
+  null,
+  true,
+  "America/Los_Angeles"
+);
+job.start();

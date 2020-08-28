@@ -8,8 +8,8 @@ const e = require("express");
 //Cards
 exports.cards_index = function (req, res) {
   Cards.find({}, async function (err, cards) {
-    if (err) res.send(err);
-    res.json(cards);
+    //if (err) res.send(err);
+    //res.json(cards);
   });
 };
 
@@ -19,11 +19,11 @@ exports.cards_create = function (req, res) {
       //add data in variables
       Cards.insertMany(results_array).then((result) => {
         console.log("Cards successfull saved!");
-        res.json("Cards successfull saved!");
+        //res.json("Cards successfull saved!");
       });
     })
     .catch((err) => {
-      if (err) res.send(err);
+      //if (err) res.send(err);
     });
 };
 
@@ -83,8 +83,8 @@ async function getEpisodesId(episodes_array) {
 //Locations
 exports.locations_index = function (req, res) {
   Locations.find({}, function (err, cards) {
-    if (err) res.send(err);
-    res.json(cards);
+    //if (err) res.send(err);
+    //res.json(cards);
   });
 };
 
@@ -104,14 +104,14 @@ exports.locations_create = async function (req, res) {
         });
         //save new location
         newLocation.save(function (err) {
-          if (err) res.send(err);
+          //if (err) res.send(err);
         });
       });
       console.log("Locations successfull saved!");
-      res.json("Locations successfull saved!");
+      //res.json("Locations successfull saved!");
     })
     .catch((err) => {
-      if (err) res.send(err);
+      //if (err) res.send(err);
     });
 };
 //return location arrays for saving
@@ -138,7 +138,7 @@ async function getLocations(url) {
 //Episodes
 exports.episodes_index = function (req, res) {
   Episodes.find({}, function (err, episodes) {
-    if (err) res.send(err);
+    //if (err) res.send(err);
     res.json(episodes.length);
   });
 };
@@ -158,14 +158,15 @@ exports.episodes_create = async function (req, res) {
         });
         //save new Episode
         newEpisode.save(function (err) {
-          if (err) res.send(err);
+          //if (err) res.send(err);
         });
       });
       console.log("Episodes successfull saved!");
-      res.json("Episodes successfull saved!");
+      exports.cards_index;
+      //res.json("Episodes successfull saved!");
     })
     .catch((err) => {
-      if (err) res.send(err);
+      throw err;
     });
 };
 

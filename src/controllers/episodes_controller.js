@@ -40,7 +40,6 @@ exports.update = function (req, res) {
 //remove episode by ID
 //Access: private
 exports.destroy = function (req, res) {
-  console.log(req.params.id);
   Episodes.findByIdAndDelete(req.params.id, function (err) {
     if (err) res.send(err);
     res.json({ message: `Element id: ${req.params.id} successfull deleted` });

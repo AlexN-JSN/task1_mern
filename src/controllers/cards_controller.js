@@ -165,7 +165,7 @@ exports.update = function (req, res) {
     if (!(await checkLocations(res, req.body.locations))) {
       return;
     }
-
+    //TODO valid fields
     card.name = req.body.name;
     card.gender = req.body.gender;
     card.species = req.body.species;

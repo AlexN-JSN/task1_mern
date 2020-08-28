@@ -20,7 +20,6 @@ module.exports = async function (auction_id) {
           user.save();
         } else {
           throw "Error, owner doesnt have this card!";
-          return false;
         }
       })
       .catch((err) => {

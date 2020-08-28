@@ -4,8 +4,8 @@ module.exports = function (app) {
   init_project(app);
 
   //parsing data from API
-  // const parsing_items = require("./parsing");
-  // parsing_items(app);
+  const parsing_items = require("./parsing");
+  parsing_items(app);
 
   //register user
   const register = require("./auth");
@@ -37,4 +37,8 @@ module.exports = function (app) {
   //bets
   const bets = require("./bets");
   bets(app);
+
+  //sets
+  const sets = require("./sets");
+  sets(app);
 };

@@ -15,9 +15,6 @@ exports.index = function (req, res) {
 //Create new auctions
 //Access: private
 exports.create = async function (req, res) {
-  //card_in_array = card_owner.cards.indexOf(req.body.card_id);
-  //card_owner.splice(card_in_array, 1);
-
   const card_id = req.body.card_id;
   const price_start = req.body.price_start;
   const max_duration_auction = req.body.max_duration_auction;
@@ -27,11 +24,11 @@ exports.create = async function (req, res) {
   const owner_id = req.user.id;
   const start_time = Date.now();
   const extended_to = parseInt(start_time) + parseInt(max_duration_auction);
-  console.log(start_time + max_duration_auction);
 
   //TODO validate fields before save
-  let blocked = await card_to_blocked(req, res);
-  if (!blocked) return;
+  let is_card_blocked = await card_to_blocked(req, res);
+  console.log(typeof is_card_blocked);
+  if (!is_card_blocked) return;
   const newAuction = new Auctions({
     card_id,
     price_start,
@@ -51,5 +48,7 @@ exports.create = async function (req, res) {
       //addToAuctionsArray(auction);
       res.json(auction);
     })
-    .catch((err) => {});
+    .catch((err) => {
+      res.json(err);
+    });
 };

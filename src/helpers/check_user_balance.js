@@ -1,43 +1,51 @@
 const Users = require("./../models/Users");
+const Auctions = require("./../models/Auctions");
 const mongoose = require("mongoose");
 
 module.exports = async (req, res, next) => {
-  await Users.aggregate([])
-    .match({ _id: mongoose.Types.ObjectId(req.user.id) })
-    .lookup({
-      from: "bets",
-      localField: "_id",
-      foreignField: "user_id",
-      as: "bets_list",
+  await Users.findById(req.user.id)
+    .then(async (user) => {
+      await Auctions.aggregate([])
+        .match({
+          buyer_id: mongoose.Types.ObjectId(req.user.id),
+          is_opened: true,
+        })
+        .group({
+          _id: "$_id",
+          current_bet: { $first: "$current_bet" },
+        })
+        .group({
+          _id: null,
+          betsSum: { $sum: "$current_bet" },
+        })
+        .project({
+          _id: 1,
+          betsSum: 1,
+        })
+        .then((result) => {
+          console.log(result);
+          let avaible_balance;
+          if (result.length) {
+            avaible_balance =
+              parseInt(user.balance) -
+              (parseInt(result[0].betsSum) + parseInt(req.body.bet));
+          } else {
+            avaible_balance = parseInt(user.balance) - parseInt(req.body.bet);
+          }
+          console.log("Avaible user balance: " + avaible_balance);
+          if (avaible_balance >= 0) {
+            next();
+          } else {
+            res
+              .status(400)
+              .json({ message: "Bet are more than current balance" });
+          }
+        })
+        .catch((err) => {
+          res.json(err);
+        });
     })
-    .unwind("$bets_list")
-    .lookup({
-      from: "auctions",
-      localField: "bets_list.auction_id",
-      foreignField: "_id",
-      as: "auctions_list",
-    })
-    .match({ "auctions_list.is_opened": true })
-    .unwind("$auctions_list")
-    .group({
-      _id: "$bets_list.auction_id",
-      bet_id: { $first: "$bets_list._id" },
-      maxBet: { $max: "$bets_list.bet" },
-      userBalance: { $first: "$balance" },
-    })
-    .group({
-      _id: null,
-      betsSum: { $sum: "$maxBet" },
-      userBalance: { $first: "$userBalance" },
-    })
-    .project({
-      _id: 1,
-      betsSum: 1,
-      userBalance: 1,
-      balance: 1,
-    })
-    .then((result) => {
-      console.log(result);
-      next();
+    .catch((err) => {
+      res.json(err);
     });
 };

@@ -15,6 +15,9 @@ module.exports = async function (user_id) {
     })
     .then((result) => {
       return result;
+    })
+    .catch((err) => {
+      throw err;
     });
   return isAdmin;
 };

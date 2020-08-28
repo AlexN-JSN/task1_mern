@@ -2,6 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+//TODO validate for image type
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadsDir = path.join(

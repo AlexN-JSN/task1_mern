@@ -13,7 +13,11 @@ const auctionsSchema = new Schema({
   },
   max_bet: {
     type: Number,
-    required: true,
+    default: null,
+  },
+  current_bet: {
+    type: Number,
+    default: null,
   },
   start_time: {
     type: Date,

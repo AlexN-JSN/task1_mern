@@ -1,6 +1,7 @@
 let Users = require("../../models/Users.js");
 let check_by_id = require("../../helpers/is_admin/check_by_id.js");
 
+//remove card from owner, add balance
 module.exports = async function (auction_data) {
   let result = await check_by_id(auction_data.owner_id);
   //check is admin card owner
@@ -14,25 +15,25 @@ module.exports = async function (auction_data) {
         if (card_index >= 0) {
           //remove card_id from cards array
           user.blocked_cards.splice(card_index, 1);
-
+          user.balance = user.balance + auction_data.current_bet;
           //add card_id to blocked_cards array
           user.markModified("blocked_cards");
           user.save();
         } else {
           throw "Error, owner doesnt have this card!";
-          return false;
         }
       })
       .catch((err) => {
         if (err) throw err;
       });
   }
-  //add Card to owner
+
+  //add Card to buyer
   await Users.findById(auction_data.buyer_id)
     .then((user) => {
       if (!user) throw "Buyer not found!";
-
       user.cards.push(auction_data.card_id);
+      user.balance = user.balance + auction_data.current_bet;
       user.markModified("cards");
       user.save();
     })
